@@ -381,6 +381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 70
+  speed: 100
+  screenHeigh: 480
+  screenWidth: 620
 --- !u!212 &1280903815
 SpriteRenderer:
   m_ObjectHideFlags: 0

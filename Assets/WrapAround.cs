@@ -7,13 +7,8 @@ public class WrapAround : MonoBehaviour
     [SerializeField]
     float minX = -320, maxX = 320, minY = -240, maxY = 240;
 
-
-    // Update is called once per frame
-    void Update()
+    public void wrap(ref float x, ref float y)
     {
-        var x = transform.position.x;
-        var y = transform.position.y;
-
         if (x > maxX)
         {
             x = minX;
@@ -34,6 +29,5 @@ public class WrapAround : MonoBehaviour
             y = maxY;
         }
 
-        transform.position = new Vector3(x, y, 0);
     }
 }

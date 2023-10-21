@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FloatAround : MonoBehaviour
@@ -17,20 +15,14 @@ public class FloatAround : MonoBehaviour
     float screenWidth = 620;
 
     float x = 0, y = 0;
-    float minX, maxX, minY, maxY;
     float xSpeed, ySpeed, rotationSpeed;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        minX = -screenWidth/2;
-        maxX = screenWidth/2;
-        minY = -screenHeigh/2;
-        maxY = screenHeigh/2;
-
-        x = Random.Range(minX, maxX);
-        y = Random.Range(minY, maxY);
+        x = Random.Range(-screenWidth / 2, screenWidth / 2);
+        y = Random.Range(-screenHeigh / 2, screenHeigh / 3);
 
         xSpeed = Random.Range(-maxVelocity, maxVelocity);
         ySpeed = Random.Range(-maxVelocity, maxVelocity);
@@ -44,27 +36,7 @@ public class FloatAround : MonoBehaviour
 
         x += xSpeed * Time.deltaTime;
         y += ySpeed * Time.deltaTime;
-
-        if (x > maxX)
-        {
-            x -= screenWidth;
-        }
-
-        if (x < minX)
-        {
-            x += screenWidth;
-        }
-
-        if (y > maxY)
-        {
-            y -= screenHeigh;
-        }
-
-        if (y < minY)
-        {
-            y += screenHeigh;
-        }
-
+        GetComponent<WrapAround>().wrap(ref x, ref y);
         transform.position = new Vector3(x, y, 0);
     }
 }

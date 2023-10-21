@@ -41,6 +41,9 @@ public class Ship : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            //destroy the moon
+            Destroy(myMoon);
+
             bLanded = false;
         }
 
@@ -53,36 +56,23 @@ public class Ship : MonoBehaviour
 
             transform.Translate(speed * Time.deltaTime * transform.right, Space.World);
 
+            var x = transform.position.x;
+            var y = transform.position.y;
 
-            var pos = transform.position;
+            GetComponent<WrapAround>().wrap(ref x, ref y);
 
-            if (pos.x > maxX)
-            {
-                pos.x -= screenWidth;
-            }
-
-            if (pos.x < minX)
-            {
-                pos.x += screenWidth;
-            }
-
-            if (pos.y > maxY)
-            {
-                pos.y -= screenHeigh;
-            }
-
-            if (pos.y < minY)
-            {
-                pos.y += screenHeigh;
-            }
-
-            transform.position = pos;
-
+            transform.position = new Vector3(x, y, 0);
 
         }
 
+    }
 
-
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Moon"))
+        {
+            myMoon = collision.gameObject;
+            bLanded = true;
+        }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 510306528510069934}
   - component: {fileID: 510306528510069935}
   - component: {fileID: 510306528510069933}
+  - component: {fileID: 2662153810391956695}
   - component: {fileID: 4894895355023593041}
   m_Layer: 0
   m_Name: Moon
@@ -102,6 +103,22 @@ MonoBehaviour:
   maxVelocity: 50
   screenHeigh: 480
   screenWidth: 620
+--- !u!114 &2662153810391956695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510306528510069920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c07f8daab1645279fab9810bc581ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minX: -320
+  maxX: 320
+  minY: -240
+  maxY: 240
 --- !u!58 &4894895355023593041
 CircleCollider2D:
   m_ObjectHideFlags: 0

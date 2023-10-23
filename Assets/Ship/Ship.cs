@@ -16,9 +16,21 @@ public class Ship : MonoBehaviour
     [SerializeField]
     float screenWidth = 620;
 
+    [SerializeField]
+    AudioClip landingAudioClip;
+
+    [SerializeField]
+    AudioClip crashedAudioClip;
+
+    [SerializeField]
+    AudioClip launchAudioClip;
+
     GameObject myMoon;
     bool bLanded = false;
     float minX, maxX, minY, maxY;
+
+    Animator animator;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +44,11 @@ public class Ship : MonoBehaviour
         myMoon = GameObject.FindGameObjectWithTag("Moon");
         transform.position = myMoon.transform.position;
         bLanded = true;
+
+        animator = GetComponent<Animator>();
+        animator.SetBool("bLanded", bLanded);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,16 +56,21 @@ public class Ship : MonoBehaviour
     {
         transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //destroy the moon
-            Destroy(myMoon);
-
-            bLanded = false;
-        }
-
         if (bLanded)
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    //destroy the moon
+                    Destroy(myMoon);
+
+                    bLanded = false;
+                    animator.SetBool("bLanded", bLanded);
+
+                    //play the launch audio clip
+                    audioSource.clip = launchAudioClip;
+                    audioSource.Play();
+                }
+
             transform.position = myMoon.transform.position;
         }
         else
@@ -69,10 +91,30 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (bLanded) return;    //nothing to do
+
         if (collision.CompareTag("Moon"))
         {
             myMoon = collision.gameObject;
             bLanded = true;
+            animator.SetBool("bLanded", bLanded);
+
+            //play the landed audio clip
+            audioSource.clip = landingAudioClip;
+            audioSource.Play();
+        }
+
+        if (collision.CompareTag("Asteroid"))
+        {
+            animator.SetBool("bExplode", true);
+
+            speed = 0;  //stop moving if we crash
+
+            //play the crash audio clip
+            audioSource.clip = crashedAudioClip;
+            audioSource.Play();
         }
     }
+
+
 }

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeedRange: 90
-  maxVelocity: 50
+  maxVelocity: 200
   screenHeigh: 480
   screenWidth: 620
 --- !u!114 &-261527936021821020
